@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华体会 · 查询对照与延伸阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fa;
+            color: #1e293b;
+            line-height: 1.7;
+        }
+
+        /* 深色头图 */
+        .hero {
+            background: linear-gradient(135deg, #0b1121 0%, #1c2a4a 100%);
+            padding: 6rem 2rem 5rem;
+            text-align: center;
+            color: #e9edf5;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to bottom, transparent, #f5f7fa);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 640px;
+            margin: 0 auto;
+            color: #b7c3db;
+            font-weight: 300;
+        }
+
+        .hero .lead-accent {
+            color: #fbbf24;
+        }
+
+        /* 主内容区 浅色 */
+        .container {
+            max-width: 1120px;
+            margin: -2.5rem auto 3rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 信息卡片式布局 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 1.75rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: transform 0.25s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07);
+        }
+
+        .card-icon {
+            font-size: 2.4rem;
+            margin-bottom: 0.6rem;
+            line-height: 1;
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.3px;
+        }
+
+        .card p {
+            color: #334155;
+            font-size: 0.98rem;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .card li {
+            padding: 0.35rem 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .card li::before {
+            content: "·";
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 1.3rem;
+            line-height: 1;
+        }
+
+        /* 延伸阅读 / 自然段落区 */
+        .reading-section {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2.5rem 2.5rem 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            margin-bottom: 2.5rem;
+        }
+
+        .reading-section h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #2563eb;
+            padding-left: 1.2rem;
+        }
+
+        .reading-section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.04rem;
+            color: #1e293b;
+        }
+
+        .reading-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 强调色链接 */
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s, color 0.2s;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #1d4ed8;
+            border-bottom-color: #1d4ed8;
+        }
+
+        .faq-tidbit {
+            margin-top: 2rem;
+            padding: 1.4rem 1.8rem;
+            background: #f1f5f9;
+            border-radius: 20px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .faq-tidbit summary {
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #0f172a;
+            padding: 0.2rem 0;
+        }
+
+        .faq-tidbit p {
+            margin-top: 0.8rem;
+            font-size: 0.98rem;
+            color: #334155;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1.5rem 2.5rem;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        footer span {
+            color: #94a3b8;
+        }
+
+        /* 响应式 */
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .card-grid {
+                gap: 1.5rem;
+            }
+
+            .reading-section {
+                padding: 1.8rem 1.4rem 2rem;
+            }
+
+            .hero {
+                padding: 4rem 1.2rem 3.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.6rem 1.2rem;
+            }
+
+            .reading-section h2 {
+                font-size: 1.5rem;
+                padding-left: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 深色头图 -->
+    <header class="hero">
+        <h1>华体会 · 查询对照</h1>
+        <p>一篇温和的卡片式介绍，用于日常查询、对照与延伸阅读。<br>从信息梳理出发，不追赶话术，只做沉静的陪伴。</p>
+    </header>
+
+    <main class="container">
+
+        <!-- 信息卡片: 用途 / 适合人群 / 场景 -->
+        <div class="card-grid">
+            <!-- 卡片1: 日常查询 -->
+            <div class="card">
+                <div class="card-icon">🔍</div>
+                <h3>日常查询</h3>
+                <p>无论你是偶尔需要核实一个名字，还是想快速回顾某段内容，都可以把这里当作一个安静的查询起点。无需注册，没有弹窗干扰。</p>
+                <ul>
+                    <li>名称对照 &amp; 基础信息</li>
+                    <li>条目式快速浏览</li>
+                    <li>零广告阅读环境</li>
+                </ul>
+            </div>
+
+            <!-- 卡片2: 对照整理 -->
+            <div class="card">
+                <div class="card-icon">📋</div>
+                <h3>对照整理</h3>
+                <p>当你在多个来源间切换时，一个结构清晰的页面能帮你节省精力。卡片式分区让信息对比更直观，减少眼睛的疲惫。</p>
+                <ul>
+                    <li>并列内容一目了然</li>
+                    <li>适合做笔记或摘录</li>
+                    <li>简练的条目化呈现</li>
+                </ul>
+            </div>
+
+            <!-- 卡片3: 适合人群 -->
+            <div class="card">
+                <div class="card-icon">🧑‍💻</div>
+                <h3>适合人群</h3>
+                <p>无论是初次接触的新朋友，还是希望快速检索的回头客，都能在这里获得平实的参考。不同背景的使用者都能找到自己的节奏。</p>
+                <ul>
+                    <li>信息爱好者</li>
+                    <li>内容梳理者</li>
+                    <li>寻求安静阅读环境的人</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 自然链接段落 + 延伸阅读 -->
+        <section class="reading-section">
+            <h2>从日常查询到延伸阅读</h2>
+
+            <p>在日常的信息海洋里，我们常常需要一处可以随时停下来、翻一翻、对一对的地方。无论你是在整理手头的资料，还是单纯想了解某个名称的背景，一份结构清晰的卡片式介绍都能帮上忙。这里没有复杂的导航，也没有冗余的修饰——只把最常用的内容放在你的眼前。</p>
+
+            <p>例如，当你需要快速核对某些基础信息时，可以直接翻阅上面的卡片分区。而如果你希望更深入地了解「华体会」这一名称的来龙去脉、常见疑问或相关线索，则可以顺着下面的段落继续读下去。整个页面设计就是为这种“先查、再对、后延伸”的节奏服务的。</p>
+
+            <p><a href="https://hthdb.com.cn">华体会</a> 这个名字本身承载了相当丰富的查询场景：有的人是为了确认拼写或用法，有的人是想了解它出现的上下文，还有的人只是偶然看到后想多知道一点。无论出于哪种出发点，一个干净、可对照的页面都会让整个过程更从容。</p>
+
+            <p>延伸阅读不一定非要长篇大论。有时候，一段清晰的FAQ摘要，或者几个常见疑问的简要回答，就能帮人省下不少时间。为此我们在下面准备了一个小小的FAQ片段，涵盖了几条出现频率较高的问题。你可以把它当作一个快速参考，也可以跳过直接阅读其他内容。</p>
+
+            <!-- FAQ 摘要 -->
+            <div class="faq-tidbit">
+                <details>
+                    <summary>📌 FAQ 摘要 · 几个常见疑问</summary>
+                    <p><strong>Q：这个页面是官方介绍吗？</strong><br>A：不是。这是一份由兴趣驱动的信息卡片式介绍，目标是提供清晰的查询对照体验，不含商业推广或诱导点击。</p>
+                    <p><strong>Q：我可以把这里的内容当作可靠来源引用吗？</strong><br>A：建议只作为个人查询和延伸阅读的起点，如需权威信息，请进一步核实原始出处。</p>
+                    <p><strong>Q：为什么没有复杂的功能？</strong><br>A：因为我们的初衷就是“少即是多”。一个安静的、卡片分区的内容页，往往比堆满按钮的界面更适合专注阅读。</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- 一段轻提示 / 温和收尾 -->
+        <div style="text-align: center; margin: 1rem 0 2rem;">
+            <p style="color: #64748b; font-size: 0.95rem; background: #f8fafc; display: inline-block; padding: 0.6rem 1.8rem; border-radius: 60px;">
+                🌱 慢慢来，信息不需要一次消化完
+            </p>
+        </div>
+
+    </main>
+
+    <footer>
+        <span>华体会 · 查询对照与延伸阅读 &nbsp;|&nbsp; 卡片式介绍 &nbsp;·&nbsp; 温和呈现</span>
+    </footer>
+
+</body>
+</html>
