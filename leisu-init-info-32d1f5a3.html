@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷速 · 再次相遇的起点</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #eaeef3;
+            color: #1f2a36;
+            line-height: 1.6;
+            padding: 2rem 1.2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page {
+            max-width: 920px;
+            width: 100%;
+        }
+
+        /* hero 区 - 克制且留白 */
+        .hero {
+            padding: 2.2rem 0 1.5rem;
+            border-bottom: 1px solid #d4dce6;
+            margin-bottom: 2.2rem;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            color: #1f2a36;
+        }
+        .hero h1 em {
+            font-style: normal;
+            font-weight: 600;
+            color: #1e3c5f;
+        }
+        .hero .sub {
+            margin-top: 0.6rem;
+            font-size: 1rem;
+            color: #4d5e70;
+            max-width: 70%;
+        }
+
+        /* 卡片体系 — 浅灰底 + 柔和阴影 + 细边框 */
+        .card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+        .card {
+            background: #f7f9fb;
+            border-radius: 20px;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e2e9f0;
+            transition: box-shadow 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+        }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 0.7rem;
+            color: #1e3c5f;
+            letter-spacing: -0.01em;
+            border-left: 4px solid #b7c9da;
+            padding-left: 0.9rem;
+        }
+        .card p {
+            margin-bottom: 0.7rem;
+            color: #2b3b4a;
+        }
+        .card p:last-child {
+            margin-bottom: 0;
+        }
+        .card a {
+            color: #1e3c5f;
+            text-decoration: none;
+            border-bottom: 1px solid #b7c9da;
+            transition: border-color 0.2s, color 0.2s;
+            font-weight: 450;
+        }
+        .card a:hover {
+            border-bottom-color: #1e3c5f;
+            color: #0b1a2a;
+        }
+
+        /* 亮点列表 — 细线分隔 */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0.3rem;
+        }
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e4eaf0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+        }
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        .feature-list li::before {
+            content: "·";
+            font-weight: 700;
+            color: #5f7a97;
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        /* 使用建议 – 两列小卡片 */
+        .advice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0 0.2rem;
+        }
+        .advice-item {
+            background: #f1f5fa;
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+            border: 1px solid #dfe7ef;
+        }
+        .advice-item strong {
+            font-weight: 550;
+            color: #1e3c5f;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+        .advice-item span {
+            font-size: 0.9rem;
+            color: #3f5368;
+        }
+
+        /* 提示 / 访问说明 */
+        .note-box {
+            background: #f1f5fa;
+            border-left: 4px solid #b7c9da;
+            padding: 1.2rem 1.5rem;
+            border-radius: 0 14px 14px 0;
+            margin-top: 0.8rem;
+            font-size: 0.92rem;
+            color: #2b3b4a;
+        }
+
+        /* 常见问题摘要 (简) */
+        .faq-mini {
+            margin-top: 0.6rem;
+        }
+        .faq-mini details {
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid #e2e9f0;
+            padding-bottom: 0.5rem;
+        }
+        .faq-mini details summary {
+            cursor: pointer;
+            font-weight: 450;
+            color: #1e3c5f;
+            padding: 0.2rem 0;
+        }
+        .faq-mini details p {
+            padding: 0.4rem 0 0.2rem 0.8rem;
+            color: #3f5368;
+            font-size: 0.9rem;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #d4dce6;
+            font-size: 0.85rem;
+            color: #5c7080;
+            text-align: center;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body {
+                padding: 1.2rem 1rem;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero .sub {
+                max-width: 100%;
+            }
+            .card {
+                padding: 1.4rem 1.2rem;
+            }
+            .advice-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+            .note-box {
+                padding: 1rem 1.2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            .card-title {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- hero -->
+    <div class="hero">
+        <h1>再次遇见 <em>雷速</em></h1>
+        <div class="sub">一些事物值得被收藏，然后在某个平常的日子重新打开。这里是一份关于 <a href="https://leisu-init-rayspeed.com" style="border-bottom:1px solid #b7c9da; font-weight:500;">雷速</a> 的说明与备忘，写给再次到访的你。</div>
+    </div>
+
+    <!-- 卡片区域 -->
+    <div class="card-grid">
+
+        <!-- 摘要/再次访问 -->
+        <div class="card">
+            <div class="card-title">摘要 · 从收藏到重访</div>
+            <p>如果你曾把 <a href="https://leisu-init-rayspeed.com">雷速</a> 加入书签，或是在某个讨论中记下这个名字，那么这次访问或许不是偶然。页面本身保持一贯的安静气质——没有轮播、没有弹窗，只有功能性的结构和克制的信息密度。</p>
+            <p>它不追逐注意力，而是提供一种可反复使用的工具感：轻量、直接、不打扰。对于习惯长期关注某个服务的人来说，这种稳定反而是一种安全感。</p>
+        </div>
+
+        <!-- 特点 + 场景合并 -->
+        <div class="card">
+            <div class="card-title">几个值得留意的侧面</div>
+            <ul class="feature-list">
+                <li>结构优先于装饰 —— 无论屏幕大小，信息层级始终清晰可辨；</li>
+                <li>操作反馈克制 —— 没有夸张的动画或声音，一切以完成目标为准；</li>
+                <li>长期使用友好 —— 适合每周、每月甚至更久一次的节奏，不会积累冗余；</li>
+                <li>环境适应性强 —— 在旧设备、慢网络或阅读模式下依然可访问。</li>
+            </ul>
+            <p style="margin-top:0.8rem;">如果你正在寻找一个可以「放着、记住、偶尔回来」的触点，<a href="https://leisu-init-rayspeed.com">雷速</a> 或许恰好符合这种期待。</p>
+        </div>
+
+        <!-- 使用建议 双栏 -->
+        <div class="card">
+            <div class="card-title">使用建议 · 自然融入日常</div>
+            <div class="advice-grid">
+                <div class="advice-item">
+                    <strong>作为固定锚点</strong>
+                    <span>把它放在浏览器书签栏的常用分组里，或记在笔记软件的快速链接行。不必每天打开，知道它在就行。</span>
+                </div>
+                <div class="advice-item">
+                    <strong>周期性回顾</strong>
+                    <span>每隔几周或一个月回来一次，看看界面或功能是否有细微变化。有时微调本身就是一种信号。</span>
+                </div>
+                <div class="advice-item">
+                    <strong>保持最低期望</strong>
+                    <span>它不是一个不断推送新内容的平台，而是一个稳定存在的工具入口。越少预期，越容易获得满足。</span>
+                </div>
+                <div class="advice-item">
+                    <strong>分享给需要的人</strong>
+                    <span>如果身边有人正好在寻找同类服务，可以把 <a href="https://leisu-init-rayspeed.com">雷速</a> 作为一个安静的选择提一下，不需要过多解释。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可信但克制的访问说明 + FAQ摘要 -->
+        <div class="card">
+            <div class="card-title">访问说明 · 一些真实前提</div>
+            <div class="note-box">
+                <p>• <a href="https://leisu-init-rayspeed.com">雷速</a> 是一个以功能为核心导向的页面，不收集不必要的个人信息，也没有隐性的第三方追踪。你可以放心地把它留在标签页里。</p>
+                <p>• 网络环境可能会影响加载速度，但页面本身经过压缩和精简，大部分情况下在 2G/3G 网络下也能完成基础操作。</p>
+                <p>• 如果长时间未访问，建议先确认浏览器缓存是否正常，或直接输入链接。收藏夹里的地址通常不会失效，但保持链接更新总是好的。</p>
+            </div>
+
+            <div class="faq-mini">
+                <details>
+                    <summary>FAQ 摘要 · 常见疑问</summary>
+                    <p><strong>需要注册或登录吗？</strong> 不需要。直接打开即可使用核心功能，没有强制账户体系。</p>
+                    <p><strong>页面会经常变化吗？</strong> 不会。更新以优化体验为主，外观和交互不会频繁改动，可长期依赖。</p>
+                    <p><strong>适合在移动端使用吗？</strong> 适合。布局在手机上会自动适配，卡片和按钮大小也考虑了触控。</p>
+                    <p><strong>有离线版本或文档吗？</strong> 目前没有单独文档，所有说明都在页面本身，简洁即是文档。</p>
+                </details>
+            </div>
+        </div>
+
+        <!-- 最后一个卡片：持续关注的角度 -->
+        <div class="card" style="background:#f4f8fc;">
+            <div class="card-title">持续关注 · 一种温和的节奏</div>
+            <p>不必设置提醒，也无需强迫自己定期回来。真正值得持续关注的事物，往往不需要外力推动——它会在你需要的时候恰好出现在脑海里，然后你自然地输入那个熟悉的链接。</p>
+            <p style="margin-bottom:0;">如果你愿意，可以把 <a href="https://leisu-init-rayspeed.com">雷速</a> 当作数字空间里的一个安静角落。它不吵不闹，等你来。</p>
+        </div>
+
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer-note">
+        <span>一份再访指南 · 写于秋天</span>
+    </div>
+
+</div>
+</body>
+</html>
